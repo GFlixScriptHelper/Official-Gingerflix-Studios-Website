@@ -1,0 +1,212 @@
+/* ============================================================
+   GingerFlix Studios — Frutiger Aero / Frutiger Aurora theme
+   Load AFTER the existing <style> block. Keeps the same blues.
+   ============================================================ */
+
+:root{
+  --bg: transparent;
+  --panel: rgba(255,255,255,.16);
+  --navy: rgba(0,50,140,.35);
+  --blue: #1e88e5;
+  --blue-light: #c4ecff;
+  --text: #ffffff;
+  --muted: rgba(255,255,255,.84);
+  --line: rgba(255,255,255,.5);
+  --glass: rgba(255,255,255,.18);
+  --glass-edge: rgba(255,255,255,.65);
+  --glow: 0 10px 32px rgba(0,60,150,.38), inset 0 1px 0 rgba(255,255,255,.85), inset 0 -1px 0 rgba(255,255,255,.15);
+  --gloss-btn: linear-gradient(180deg,#9be2ff 0%,#3aa8f7 48%,#0a6fd8 50%,#38b8ff 100%);
+}
+
+html{ background:#0a4fb4; }
+body{
+  background:transparent;
+  color:var(--text);
+  text-shadow:0 1px 2px rgba(0,40,110,.35);
+  position:relative;
+}
+
+/* ---------- Aurora background (add <div class="aurora"></div> right after <body>) ---------- */
+.aurora{
+  position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none;
+  background:
+    linear-gradient(180deg,#0a4fb4 0%,#1676dc 38%,#3cb2f5 72%,#9fe4ff 100%);
+}
+.aurora::before,
+.aurora::after{
+  content:""; position:absolute; inset:-25%;
+  filter:blur(48px); opacity:.9; mix-blend-mode:screen;
+}
+.aurora::before{
+  background:
+    radial-gradient(40% 28% at 20% 30%, rgba(120,225,255,.85), transparent 70%),
+    radial-gradient(34% 24% at 75% 22%, rgba(90,170,255,.8), transparent 70%),
+    radial-gradient(46% 30% at 55% 65%, rgba(150,240,255,.6), transparent 72%);
+  animation:auroraA 22s ease-in-out infinite alternate;
+}
+.aurora::after{
+  background:
+    linear-gradient(115deg, transparent 20%, rgba(190,245,255,.55) 38%, rgba(70,160,255,.0) 52%, rgba(160,235,255,.5) 66%, transparent 82%);
+  transform:skewY(-8deg);
+  animation:auroraB 30s ease-in-out infinite alternate;
+}
+@keyframes auroraA{
+  from{ transform:translate3d(-4%,-3%,0) scale(1); }
+  to  { transform:translate3d(5%,4%,0) scale(1.15); }
+}
+@keyframes auroraB{
+  from{ transform:translate3d(-8%,0,0) skewY(-8deg); opacity:.55; }
+  to  { transform:translate3d(8%,-5%,0) skewY(-4deg); opacity:.95; }
+}
+
+/* floating bubbles */
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,.75), rgba(255,255,255,.12) 38%, rgba(255,255,255,.04) 62%, transparent 64%) 8% 18%/120px 120px no-repeat,
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,.7),  rgba(255,255,255,.1) 38%,  rgba(255,255,255,.04) 62%, transparent 64%) 90% 40%/190px 190px no-repeat,
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,.65), rgba(255,255,255,.1) 38%,  rgba(255,255,255,.04) 62%, transparent 64%) 14% 78%/80px 80px no-repeat,
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,.65), rgba(255,255,255,.1) 38%,  rgba(255,255,255,.04) 62%, transparent 64%) 70% 88%/140px 140px no-repeat;
+  animation:bubbleDrift 14s ease-in-out infinite alternate;
+}
+@keyframes bubbleDrift{ from{ transform:translateY(0); } to{ transform:translateY(-22px); } }
+
+/* ---------- Nav ---------- */
+nav{
+  background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.12));
+  backdrop-filter:blur(18px) saturate(170%);
+  -webkit-backdrop-filter:blur(18px) saturate(170%);
+  border-bottom:1px solid var(--glass-edge);
+  box-shadow:0 6px 24px rgba(0,60,150,.28), inset 0 1px 0 rgba(255,255,255,.9);
+  position:sticky; top:0; z-index:50;
+}
+nav .links{ color:#fff; font-weight:500; }
+nav .links a:hover{ color:#fff; text-shadow:0 0 12px rgba(255,255,255,.95); }
+nav .links a::after{ background:#fff; }
+.wordmark .logo{ background:transparent; mix-blend-mode:screen; }
+.wordmark .logo,.wordmark .logo-text{ filter:drop-shadow(0 2px 8px rgba(0,60,150,.5)); }
+
+/* ---------- Hero ---------- */
+.hero{
+  position:relative; overflow:hidden;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.38) 0%,rgba(255,255,255,.10) 48%,rgba(0,70,170,.20) 100%);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--glass-edge);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+}
+.hero::after{ /* glossy arc */
+  content:""; position:absolute; left:-10%; right:-10%; top:-60%; height:100%;
+  background:radial-gradient(ellipse at 50% 100%, rgba(255,255,255,.28), transparent 65%);
+  pointer-events:none;
+}
+.hero-left .big-logo{ filter:drop-shadow(0 8px 22px rgba(0,60,150,.45)); }
+.hero-left .official,
+.hero-left .hero-quote{ color:#fff; text-shadow:0 2px 10px rgba(0,60,150,.55), 0 0 18px rgba(255,255,255,.45); }
+
+/* glossy Aero buttons */
+.hero-links a,
+.play,
+.creator-links a,
+.btn{
+  background:var(--gloss-btn);
+  border:1px solid rgba(255,255,255,.85);
+  color:#fff;
+  text-shadow:0 1px 2px rgba(0,50,130,.6);
+  box-shadow:0 6px 16px rgba(0,60,150,.40), inset 0 1px 1px rgba(255,255,255,.95), inset 0 -2px 6px rgba(255,255,255,.25);
+  position:relative; overflow:hidden;
+}
+.hero-links a{ border-radius:999px; }
+.hero-links a::before,
+.play::before,
+.creator-links a::before{
+  content:""; position:absolute; left:6%; right:6%; top:2px; height:46%;
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(255,255,255,.05));
+  pointer-events:none;
+}
+.hero-links a:hover,
+.play:hover,
+.creator-links a:hover,
+.btn:hover{
+  background:linear-gradient(180deg,#b6ecff 0%,#55bcff 48%,#1485ee 50%,#52c8ff 100%);
+  box-shadow:0 8px 22px rgba(0,90,200,.5), 0 0 18px rgba(160,235,255,.8), inset 0 1px 1px #fff;
+}
+.hero-links a:hover{ box-shadow:0 8px 22px rgba(0,90,200,.5), 0 0 18px rgba(160,235,255,.8), inset 0 1px 1px #fff; }
+.btn.ghost{ background:rgba(255,255,255,.2); }
+
+/* ---------- Section headings ---------- */
+#games .games-head h2,
+#creators .creators-head h2{ color:#fff; text-shadow:0 2px 12px rgba(0,60,150,.5), 0 0 24px rgba(255,255,255,.35); }
+#games .games-head p,
+#creators .creators-head p{ color:var(--muted); }
+.group-label{ color:#fff; text-shadow:0 1px 6px rgba(0,60,150,.5); }
+.group-label::after{ background:linear-gradient(90deg,rgba(255,255,255,.8),transparent); }
+
+/* ---------- Glass cards ---------- */
+.game-card,
+.featured,
+.creator-card,
+.card,
+.member-card{
+  background:linear-gradient(160deg,rgba(255,255,255,.30),rgba(255,255,255,.10) 55%,rgba(255,255,255,.18));
+  backdrop-filter:blur(18px) saturate(170%);
+  -webkit-backdrop-filter:blur(18px) saturate(170%);
+  border:1px solid var(--glass-edge);
+  border-radius:22px;
+  box-shadow:var(--glow);
+  position:relative;
+}
+.game-card::after,
+.featured::after,
+.creator-card::after{ /* top gloss sheen */
+  content:""; position:absolute; left:0; right:0; top:0; height:42%;
+  background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,0));
+  border-radius:22px 22px 0 0; pointer-events:none; z-index:2;
+}
+.game-card:hover,
+.creator-card:hover{
+  border-color:#fff;
+  box-shadow:0 18px 40px rgba(0,80,190,.45), 0 0 26px rgba(160,235,255,.7), inset 0 1px 0 #fff;
+}
+.featured{ border-color:rgba(255,255,255,.9); box-shadow:0 16px 44px rgba(0,70,170,.45), 0 0 34px rgba(150,230,255,.55), inset 0 1px 0 #fff; }
+.game-thumb{ background:linear-gradient(135deg,#7fd6ff 0%,#2a8cf0 100%); border-bottom:1px solid rgba(255,255,255,.6); }
+.game-thumb .badge{ background:rgba(255,255,255,.28); border:1px solid rgba(255,255,255,.8); backdrop-filter:blur(8px); color:#fff; text-shadow:0 1px 2px rgba(0,50,130,.6); }
+.game-body .meta,
+.featured-body p,
+.creator-info p,
+.card p{ color:var(--muted); }
+.eyebrow,
+.creator-info .role,
+.frame-tag{ color:#d9f4ff; }
+.play-count strong{ color:#fff; }
+.play-count small{ color:var(--muted); }
+.soon{ border-color:#fff; color:#fff; background:rgba(255,255,255,.2); }
+
+/* creators */
+.avatar-lg,.avatar{
+  border:3px solid rgba(255,255,255,.9);
+  background:linear-gradient(135deg,#7fd6ff,#2a8cf0);
+  box-shadow:0 6px 18px rgba(0,60,150,.45), 0 0 18px rgba(160,235,255,.7), inset 0 2px 4px rgba(255,255,255,.7);
+}
+
+/* tags */
+.tags span{ background:rgba(255,255,255,.2); border:1px solid rgba(255,255,255,.7); color:#fff; }
+.external-link,.tiktok{ color:#e6f8ff; }
+
+/* ---------- Footers ---------- */
+footer{ background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(0,60,160,.35)); backdrop-filter:blur(14px); border-top:1px solid var(--glass-edge); }
+footer .meta,footer .meta a{ color:#e6f8ff; }
+.copyright{
+  background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(0,60,160,.35));
+  backdrop-filter:blur(14px) saturate(160%);
+  border-top:1px solid var(--glass-edge);
+  color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+}
+.copyright .fine{ color:rgba(255,255,255,.8); }
+
+/* fallback when backdrop-filter is unsupported */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .game-card,.featured,.creator-card,.card,.member-card,nav,.copyright{ background:rgba(20,110,220,.55); }
+}
